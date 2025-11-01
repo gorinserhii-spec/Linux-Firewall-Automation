@@ -80,11 +80,13 @@ chmod +x install_firewall.sh
 chmod +x generate_report.sh
 
 ### 2️⃣ Run installer (one-time setup)
-```bash
 sudo ./install_firewall.sh
 
+
 ### 3️⃣ Generate security report anytime
+
 sudo ./generate_report.sh
+```
 
 ### 4️⃣ View report
 Open report.md to inspect the firewall and Fail2ban activity summary.
@@ -102,4 +104,9 @@ Firewall configuration (UFW)
 Intrusion prevention (Fail2ban)
 Security automation & reporting
 
-Author: Serhii Gorin Date: 01.11.2025 License: MIT
+## 📜 License
+This project is licensed under the [MIT License](./LICENSE).
+
+=================================================
+# Author: Serhii Gorin 
+# Date: 01.11.2025

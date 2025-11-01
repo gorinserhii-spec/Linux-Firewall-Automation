@@ -94,7 +94,7 @@ sudo ./generate_report.sh
 Open report.md to inspect the firewall and Fail2ban activity summary.
 
 ### 📊 Example Output
-Example report on a clean server (real data will populate as attacks are blocked): (report.png)
+Example report on a clean server (real data will populate as attacks are blocked): (report.PNG)
 
 ### 🧠 Summary
 This project demonstrates a professional, security-oriented approach to Linux server management. It separates setup from monitoring and prioritizes safety, automation, and transparency.

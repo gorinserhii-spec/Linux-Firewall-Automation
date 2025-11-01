@@ -5,16 +5,16 @@ UFW_LOG="/var/log/ufw.log"
 
 echo "Generating attack report..."
 
-# --- Улучшение 1: Более чистый отчет ---
+# Create a new, clean report
 echo "# Firewall Attack Report" > "$REPORT_FILE"
 echo "## Date: $(date)" >> "$REPORT_FILE"
 echo "" >> "$REPORT_FILE"
 
-# --- Улучшение 2: Проверка, что Fail2ban работает ---
+# Check if Fail2ban is running
 if command -v fail2ban-client &> /dev/null; then
     echo "--- Fail2ban Status (sshd) ---" >> "$REPORT_FILE"
     
-    # Получаем полный статус, а не только IP
+    # Get the full status, not just the IP
     STATUS_OUTPUT=$(fail2ban-client status sshd)
     
     echo "\`\`\`" >> "$REPORT_FILE"
@@ -26,11 +26,11 @@ fi
 
 echo "" >> "$REPORT_FILE"
 
-# --- Улучшение 3: Проверка, что лог UFW существует ---
+# Check if the UFW log exists
 if [ -f "$UFW_LOG" ]; then
     echo "--- UFW Log (Last 20 DENY entries) ---" >> "$REPORT_FILE"
     echo "\`\`\`" >> "$REPORT_FILE"
-    # Ищем строки, содержащие [UFW BLOCK], так как DENY может быть в другом месте
+    # Search for lines containing [UFW BLOCK], as DENY might be elsewhere
     tail -n 100 "$UFW_LOG" | grep "\[UFW BLOCK\]" | tail -n 20 >> "$REPORT_FILE"
     echo "\`\`\`" >> "$REPORT_FILE"
 else

@@ -99,12 +99,11 @@ Example report on a clean server (real data will populate as attacks are blocked
 ### 🧠 Summary
 This project demonstrates a professional, security-oriented approach to Linux server management. It separates setup from monitoring and prioritizes safety, automation, and transparency.
 
-Key skills demonstrated:
-Bash scripting
-Linux system administration
-Firewall configuration (UFW)
-Intrusion prevention (Fail2ban)
-Security automation & reporting
+- Bash scripting
+- Linux system administration
+- Firewall configuration (UFW)
+- Intrusion prevention (Fail2ban)
+- Security automation & reporting
 
 ## 📜 License
 This project is licensed under the [MIT License](./LICENSE).

@@ -1,4 +1,4 @@
-# 🔐 Linux Firewall & Automated Security Report  
+# 🔐 Linux Firewall & Automated Security Report
 
 ![Bash](https://img.shields.io/badge/language-bash-green)
 ![Linux](https://img.shields.io/badge/platform-linux-blue)
@@ -7,74 +7,74 @@
 
 ---
 
-## 📌 Overview  
-Interactive Bash automation project for securing and monitoring a Debian-based Linux server (e.g., Ubuntu).  
-Includes **firewall setup**, **SSH hardening**, **Fail2ban configuration**, and **real-time report generation**.
+## 📌 Overview
+This project provides two **professional Bash automation scripts** to secure and monitor a Debian-based Linux server (e.g., Ubuntu).
+It automates **firewall setup**, **SSH hardening**, and **Fail2ban configuration**, and generates live **security reports**.
 
-Designed to be:  
-- 🧩 **Interactive** – guided step-by-step configuration.  
-- 🧱 **Non-destructive** – appends safely without overwriting.  
-- 🔒 **Security-focused** – built for real production environments.
-
----
-
-## 🎯 Key Features  
-
-- **Interactive Setup** — select a custom SSH port (avoid default port 22).  
-- **Safety Confirmation** — user approval before applying rules.  
-- **Non-Destructive Configuration** — safely appends to `/etc/fail2ban/jail.local`.  
-- **Two-Script Design:**  
-  - `install_firewall.sh` → setup & configuration.  
-  - `generate_report.sh` → monitoring & reporting.  
-- **Firewall Policy:**  
-  - Default: deny all incoming.  
-  - Allow: SSH (custom port), HTTP (80), HTTPS (443).  
-- **Automated Reporting:**  
-  - Captures live Fail2ban jail status.  
-  - Summarizes last blocked packets from UFW logs into `report.md`.
+The scripts are:
+- 🧩 **Interactive** — guide the user step-by-step.
+- 🧱 **Non-destructive** — append rules safely, never overwrite.
+- 🔒 **Security-focused** — designed for real server environments.
 
 ---
 
-## 🛠 Requirements  
+## 🎯 Key Features
 
-- Debian-based Linux (Ubuntu 20.04+ recommended)  
-- `sudo` or root privileges  
-- Bash shell  
-
----
-
-## 🔧 Script Details  
-
-### 🧰 `install_firewall.sh` — Installer  
-
-**Functionality:**  
-1. Prompts for confirmation to prevent accidental execution.  
-2. Asks for a custom SSH port (default: 22).  
-3. Installs and configures **UFW**:  
-   - Installs if missing.  
-   - Applies default deny policy for incoming connections.  
-   - Allows SSH (custom), HTTP (80), HTTPS (443).  
-   - Enables logging.  
-4. Installs and configures **Fail2ban**:  
-   - Installs if missing.  
-   - Checks `/etc/fail2ban/jail.local` and safely appends `[sshd]` rule if absent.  
-5. Restarts **Fail2ban** and enables **UFW** to apply all changes.  
+- **Interactive Setup** — choose a custom SSH port (avoid default port 22).
+- **Safety Confirmation** — user approval before applying changes.
+- **Non-Destructive Configuration** — appends to `/etc/fail2ban/jail.local` instead of overwriting.
+- **Two-Script Architecture:**
+  - `install_firewall.sh` → installs and configures security stack.
+  - `generate_report.sh` → produces timestamped reports.
+- **Firewall Policy:**
+  - Default: deny all incoming.
+  - Allow: SSH (custom port), HTTP (80), HTTPS (443).
+- **Automated Reporting:**
+  - Captures live Fail2ban status.
+  - Summarizes recent blocked UFW packets in `report.md`.
 
 ---
 
-### 📄 `generate_report.sh` — Reporter  
+## 🛠 Requirements
 
-**Functionality:**  
-- Creates a new `report.md` file with a timestamped header.  
-- Executes `fail2ban-client status sshd` and outputs banned IPs and jail stats.  
-- Reads `/var/log/ufw.log` to extract the latest `[UFW BLOCK]` events (last 20 entries).  
-- Saves all results into `report.md` for review.
+- Debian-based Linux (Ubuntu 20.04 or newer)
+- `sudo` or root privileges
+- Bash shell environment
 
 ---
 
-## 🚀 Usage  
+## 🔧 Script Details
 
-### 1️⃣ Make the scripts executable  
+### 🧰 `install_firewall.sh` — Installer
+
+**Main actions:**
+1. 🔹 **Confirmation prompt** – prevents accidental execution.
+2. 🔹 **Custom SSH port** – user input (defaults to 22).
+3. 🔹 **UFW setup:**
+   - Installs UFW if missing.
+   - Configures custom SSH, HTTP and HTTPS rules.
+   - Enables logging.
+4. 🔹 **Fail2ban configuration:**
+   - Installs Fail2ban if missing.
+   - Checks `/etc/fail2ban/jail.local`; safely appends `[sshd]` rule if absent.
+5. 🔹 **Service restart & activation:**
+   - Restarts Fail2ban.
+   - Enables and activates UFW.
+
+---
+
+### 📄 `generate_report.sh` — Reporter
+
+Creates a detailed, timestamped `report.md` with:
+- Current **Fail2ban jail status** (`fail2ban-client status sshd`).
+- Recent **UFW block entries** – last 20 records from `/var/log/ufw.log`.
+- Auto-generated header and creation date.
+
+---
+
+## 🚀 Usage
+
+### 1️⃣ Make scripts executable
 ```bash
 chmod +x install_firewall.sh
 chmod +x generate_report.sh

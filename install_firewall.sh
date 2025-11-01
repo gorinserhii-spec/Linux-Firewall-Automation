@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# --- Улучшение 1: Безопасность (Подтверждение) ---
+# --- 1. Safety Confirmation ---
 read -p "Warning: This script will configure UFW and Fail2ban.
 It will deny all incoming ports except for SSH, HTTP (80), and HTTPS (443).
 Are you sure you want to continue? (y/n): " confirm
@@ -10,51 +10,51 @@ if [ "$confirm" != "y" ]; then
     exit 1
 fi
 
-# --- Улучшение 2: Интерактивность (Порт SSH) ---
+# --- 2. Interactive SSH Port Input ---
 read -p "Please enter your custom SSH port (or press Enter for default '22'): " ssh_port
 
-# Если пользователь ничего не ввел, используем 22
+# Default to port 22 if no input is provided
 if [ -z "$ssh_port" ]; then
     ssh_port="22"
 fi
 
 echo "--- Configuring UFW ---"
-# Установка UFW (если его нет)
+# Install UFW if it is not already present
 if ! command -v ufw &> /dev/null; then
     echo "UFW not found. Installing..."
     apt update && apt install -y ufw
 fi
 
-# Сначала разрешаем новый SSH-порт, ПОТОМ включаем firewall
+# Allow the new SSH port *before* enabling the firewall to prevent lockout
 echo "Allowing SSH on port $ssh_port/tcp..."
 ufw allow $ssh_port/tcp
 ufw allow 80/tcp  # HTTP
 ufw allow 443/tcp # HTTPS
 
-# Включаем UFW
+# Enable the firewall
 ufw --force enable
 ufw default deny incoming
 ufw default allow outgoing
 
-# Включаем логирование
+# Enable logging
 ufw logging high
 echo "UFW configured."
 
-# --- Улучшение 3: Безопасность (Установка Fail2ban) ---
+# --- 3. Install Fail2ban ---
 echo "--- Configuring Fail2ban ---"
 if ! command -v fail2ban-client &> /dev/null; then
     echo "Fail2ban not found. Installing..."
     apt update && apt install -y fail2ban
 fi
 
-# --- Улучшение 4: Безопасность (Не перезаписываем конфиг) ---
+# --- 4. Non-Destructive Fail2ban Configuration ---
 JAIL_FILE="/etc/fail2ban/jail.local"
 SSHD_RULE="[sshd]\nenabled = true"
 
-# Проверяем, существует ли файл и есть ли в нем уже [sshd]
+# Check if jail.local exists and if the [sshd] rule is already present
 if [ ! -f "$JAIL_FILE" ] || ! grep -q "\[sshd\]" "$JAIL_FILE"; then
     echo "Adding [sshd] rule to $JAIL_FILE..."
-    # Используем 'echo -e' и '>>' (append), чтобы ДОБАВИТЬ в конец, а не стереть
+    # Use 'echo -e' and '>>' (append) to add the rule without overwriting the file
     echo -e "\n$SSHD_RULE" >> "$JAIL_FILE"
 else
     echo "[sshd] rule already exists in $JAIL_FILE. Skipping."

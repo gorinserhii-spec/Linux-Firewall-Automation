@@ -78,3 +78,28 @@ Creates a detailed, timestamped `report.md` with:
 ```bash
 chmod +x install_firewall.sh
 chmod +x generate_report.sh
+
+### 2️⃣ Run installer (one-time setup)
+```bash
+sudo ./install_firewall.sh
+
+### 3️⃣ Generate security report anytime
+sudo ./generate_report.sh
+
+### 4️⃣ View report
+Open report.md to inspect the firewall and Fail2ban activity summary.
+
+### 📊 Example Output
+Example report on a clean server (real data will populate as attacks are blocked): report.png
+
+### 🧠 Summary
+This project demonstrates a professional, security-oriented approach to Linux server management. It separates setup from monitoring and prioritizes safety, automation, and transparency.
+
+Key skills demonstrated:
+Bash scripting
+Linux system administration
+Firewall configuration (UFW)
+Intrusion prevention (Fail2ban)
+Security automation & reporting
+
+Author: Serhii Gorin Date: 01.11.2025 License: MIT

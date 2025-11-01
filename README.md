@@ -78,13 +78,15 @@ Creates a detailed, timestamped `report.md` with:
 ```bash
 chmod +x install_firewall.sh
 chmod +x generate_report.sh
+```
 
 ### 2️⃣ Run installer (one-time setup)
+```bash
 sudo ./install_firewall.sh
-
+```
 
 ### 3️⃣ Generate security report anytime
-
+```bash
 sudo ./generate_report.sh
 ```
 

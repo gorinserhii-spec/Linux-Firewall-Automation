@@ -8,7 +8,7 @@
 ---
 
 ## 📌 Overview
-This project provides two **professional Bash automation scripts** to secure and monitor a Debian-based Linux server (e.g., Ubuntu).
+This project provides **automation scripts** to setup and monitor a Debian-based Linux server (e.g., Ubuntu).
 It automates **firewall setup**, **SSH hardening**, and **Fail2ban configuration**, and generates live **security reports**.
 
 The scripts are:
